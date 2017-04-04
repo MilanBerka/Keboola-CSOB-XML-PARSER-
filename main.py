@@ -177,7 +177,7 @@ if __name__ == '__main__':
         driveFilesList = drive.ListFile({'q':"mimeType='application/vnd.google-apps.folder' and title='{}' and trashed=false".format(folderToLookAt)}).GetList()                        
         folderId = driveFilesList[0]['id']
         zipfilesInFolder = drive.ListFile({'q':"'{}' in parents".format(folderId)}).GetList()
-        for zf in zipfilesInFolder[:2]:
+        for zf in zipfilesInFolder:
             if ('zip' in zf['title'].lower()) & (zf['title'] not in alreadyProcessedZipfiles['name'].tolist()) :
                 print('title: {}'.format(zf['title']))
                 alreadyProcessedZipfiles = alreadyProcessedZipfiles.append(pd.DataFrame([{'name':zf['title']}]))
