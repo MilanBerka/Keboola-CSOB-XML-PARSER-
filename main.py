@@ -208,7 +208,7 @@ if __name__ == '__main__':
         """ =========================== """
         """      CONCAT NEW WITH OLD    """
         """ =========================== """
-        if batchTable:
+        if batchTable is None:
             outputFrame = finalDataFrame
         else:
             outputFrame = pd.concat([batchTable,finalDataFrame])
