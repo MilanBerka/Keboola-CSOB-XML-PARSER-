@@ -150,7 +150,7 @@ if __name__ == '__main__':
     try:
         alreadyProcessedZipfiles = pd.read_csv('in/tables/alreadyProcessedZipFiles.csv')
     except: 
-        alreadyProcessedZipfiles = pd.DataFrame({'name':[np.nan]})
+        alreadyProcessedZipfiles = pd.DataFrame({'name':[]})
     
     """ =========================== """
     """ KEBOOLA STUFF """
@@ -204,33 +204,32 @@ if __name__ == '__main__':
             else:
                 pass
             
-    try:
-        """ =========================== """
-        """      CONCAT NEW WITH OLD    """
-        """ =========================== """
-        if batchTable is None:
-            outputFrame = finalDataFrame
-        else:
-            if finalDataFrame is None:
-                outputFrame = batchTable
-            else:
-                outputFrame = pd.concat([batchTable,finalDataFrame])
-        outputFrame.drop_duplicates(subset=['merchant_header.type', 'parentTag', 'merchant_header.merchant_id',
-       'merchant_header.merchant_name', 'merchant_header.firm_identificator',
-       'merchant_header.bank_account', 'merchant_header.bank_code',
-       'merchant_header.transaction_currency',
-       'merchant_header.account_currency', 'transaction.type',
-       'transaction.terminal_id', 'transaction.auth_code', 'transaction.date',
-       'transaction.time', 'transaction.invoice_number',
-       'transaction.variable_symbol', 'transaction.card_number',
-       'transaction.brutto_transaction_currency',
-       'transaction.brutto_account_currency', 'transaction.brutto_CRDB',
-       'transaction.IF', 'transaction.AF', 'transaction.fee',
-       'transaction.netto', 'transaction.netto_CRDB', 'transaction.cashback',
-       'transaction.cashback_CRDB'],inplace=True)
-    
-        outputFrame.to_csv('out/tables/parsedBatch.csv',index=None)
-        alreadyProcessedZipfiles.to_csv('out/tables/alreadyProcessedZipfiles.csv',index=None)
-        
-    except AttributeError:
-        pass
+
+            
+""" =========================== """
+"""      CONCAT NEW WITH OLD    """
+""" =========================== """
+if batchTable is None:
+    outputFrame = finalDataFrame
+else:
+    if finalDataFrame is None:
+        outputFrame = batchTable
+    else:
+        outputFrame = pd.concat([batchTable,finalDataFrame])
+outputFrame.drop_duplicates(subset=['merchant_header.type', 'parentTag', 'merchant_header.merchant_id',
+   'merchant_header.merchant_name', 'merchant_header.firm_identificator',
+   'merchant_header.bank_account', 'merchant_header.bank_code',
+   'merchant_header.transaction_currency',
+   'merchant_header.account_currency', 'transaction.type',
+   'transaction.terminal_id', 'transaction.auth_code', 'transaction.date',
+   'transaction.time', 'transaction.invoice_number',
+   'transaction.variable_symbol', 'transaction.card_number',
+   'transaction.brutto_transaction_currency',
+   'transaction.brutto_account_currency', 'transaction.brutto_CRDB',
+   'transaction.IF', 'transaction.AF', 'transaction.fee',
+   'transaction.netto', 'transaction.netto_CRDB', 'transaction.cashback',
+   'transaction.cashback_CRDB'],inplace=True)
+
+outputFrame.to_csv('out/tables/parsedBatch.csv',index=None)
+alreadyProcessedZipfiles.to_csv('out/tables/alreadyProcessedZipfiles.csv',index=None)
+
