@@ -153,7 +153,7 @@ if __name__ == '__main__':
     cfg = docker.Config()
     parameters = cfg.get_parameters()
     folderNames = parameters.get('folderNames')
-    gauth = GoogleAuth(settings_file=parameters.get('pathToFile'))
+    gauth = GoogleAuth(settings_file='/data/in/files/253425786_settings.yaml')
     drive = GoogleDrive(gauth)
     
     """ =========================== """
