@@ -150,7 +150,7 @@ if __name__ == '__main__':
     try:
         alreadyProcessedZipfiles = pd.read_csv('in/tables/alreadyProcessedZipFiles.csv')
     except: 
-        alreadyProcessedZipfiles = []
+        alreadyProcessedZipfiles = pd.DataFrame({'name':[np.nan]})
     
     """ =========================== """
     """ KEBOOLA STUFF """
