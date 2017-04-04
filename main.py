@@ -142,9 +142,15 @@ if __name__ == '__main__':
     """ =========================== """    
     """ LOAD ALREADY PROCESSED DATA """
     """ =========================== """
-
-    batchTable = pd.read_csv('in/tables/csobBatch.csv')
-    alreadyProcessedZipfiles = pd.read_csv('in/tables/alreadyProcessedZipFiles.csv')
+    try:
+        batchTable = pd.read_csv('in/tables/csobBatch.csv')
+    except:
+        batchTable = None
+    
+    try:
+        alreadyProcessedZipfiles = pd.read_csv('in/tables/alreadyProcessedZipFiles.csv')
+    except: 
+        alreadyProcessedZipfiles = []
     
     """ =========================== """
     """ KEBOOLA STUFF """
@@ -202,8 +208,10 @@ if __name__ == '__main__':
         """ =========================== """
         """      CONCAT NEW WITH OLD    """
         """ =========================== """
-        
-        outputFrame = pd.concat([batchTable,finalDataFrame])
+        if batchTable:
+            outputFrame = finalDataFrame
+        else:
+            outputFrame = pd.concat([batchTable,finalDataFrame])
         outputFrame.drop_duplicates(subset=['merchant_header.type', 'parentTag', 'merchant_header.merchant_id',
        'merchant_header.merchant_name', 'merchant_header.firm_identificator',
        'merchant_header.bank_account', 'merchant_header.bank_code',
