@@ -41,7 +41,7 @@ class Node:
         else:
             self.isLeaf = False
         if self.isLeaf:
-            self.dataFrame = pd.DataFrame({'parentTag':[self.parentTag],'{}.{}'.format(self.parentTag,self.tag):self.value})
+            self.dataFrame = pd.DataFrame({'parentTag':[self.parentTag],'{}_{}'.format(self.parentTag,self.tag):self.value})
         else:
             self.dataFrame = None
     
@@ -216,19 +216,19 @@ if __name__ == '__main__':
             outputFrame = batchTable
         else:
             outputFrame = pd.concat([batchTable,finalDataFrame])
-    outputFrame.drop_duplicates(subset=['merchant_header.type', 'parentTag', 'merchant_header.merchant_id',
-       'merchant_header.merchant_name', 'merchant_header.firm_identificator',
-       'merchant_header.bank_account', 'merchant_header.bank_code',
-       'merchant_header.transaction_currency',
-       'merchant_header.account_currency', 'transaction.type',
-       'transaction.terminal_id', 'transaction.auth_code', 'transaction.date',
-       'transaction.time', 'transaction.invoice_number',
-       'transaction.variable_symbol', 'transaction.card_number',
-       'transaction.brutto_transaction_currency',
-       'transaction.brutto_account_currency', 'transaction.brutto_CRDB',
-       'transaction.IF', 'transaction.AF', 'transaction.fee',
-       'transaction.netto', 'transaction.netto_CRDB', 'transaction.cashback',
-       'transaction.cashback_CRDB'],inplace=True)
+    outputFrame.drop_duplicates(subset=['merchant_header_type', 'parentTag', 'merchant_header_merchant_id',
+       'merchant_header_merchant_name', 'merchant_header_firm_identificator',
+       'merchant_header_bank_account', 'merchant_header_bank_code',
+       'merchant_header_transaction_currency',
+       'merchant_header_account_currency', 'transaction_type',
+       'transaction_terminal_id', 'transaction_auth_code', 'transaction_date',
+       'transaction_time', 'transaction_invoice_number',
+       'transaction_variable_symbol', 'transaction_card_number',
+       'transaction_brutto_transaction_currency',
+       'transaction_brutto_account_currency', 'transaction_brutto_CRDB',
+       'transaction_IF', 'transaction_AF', 'transaction_fee',
+       'transaction_netto', 'transaction_netto_CRDB', 'transaction_cashback',
+       'transaction_cashback_CRDB'],inplace=True)
 
     outputFrame.to_csv('out/tables/parsedBatch.csv',index=None)
     alreadyProcessedZipfiles.to_csv('out/tables/alreadyProcessedZipfiles.csv',index=None)
