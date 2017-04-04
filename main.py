@@ -181,14 +181,17 @@ if __name__ == '__main__':
                 readZipfile = zipfile.ZipFile(toUnzipBytesContent, "r")
                 for fileInZipfileName in readZipfile.namelist():
                     if '.xml' in fileInZipfileName.lower():
-                        openedXml = readZipfile.open(fileInZipfileName).read()
-                        loadedXml = ET.fromstring(openedXml.decode())
-                        toBeParsed = XMLParser(None,loadedXml.find('merchants'))  
-                        parsedXmlDataFrame = toBeParsed.parseToDataFrame()
-                        if finalDataFrame is not None:
-                            finalDataFrame = pd.concat([finalDataFrame.copy(),parsedXmlDataFrame])
+                        if ('-t' in fileInZipfileName.lower()) | ('-m' in fileInZipfileName.lower()):
+                            pass
                         else:
-                            finalDataFrame = parsedXmlDataFrame.copy()
+                            openedXml = readZipfile.open(fileInZipfileName).read()
+                            loadedXml = ET.fromstring(openedXml.decode())
+                            toBeParsed = XMLParser(None,loadedXml.find('merchants'))  
+                            parsedXmlDataFrame = toBeParsed.parseToDataFrame()
+                            if finalDataFrame is not None:
+                                finalDataFrame = pd.concat([finalDataFrame.copy(),parsedXmlDataFrame])
+                            else:
+                                finalDataFrame = parsedXmlDataFrame.copy()
                     
                     else:
                         pass              
