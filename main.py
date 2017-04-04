@@ -211,7 +211,10 @@ if __name__ == '__main__':
         if batchTable is None:
             outputFrame = finalDataFrame
         else:
-            outputFrame = pd.concat([batchTable,finalDataFrame])
+            if finalDataFrame is None:
+                outputFrame = batchTable
+            else:
+                outputFrame = pd.concat([batchTable,finalDataFrame])
         outputFrame.drop_duplicates(subset=['merchant_header.type', 'parentTag', 'merchant_header.merchant_id',
        'merchant_header.merchant_name', 'merchant_header.firm_identificator',
        'merchant_header.bank_account', 'merchant_header.bank_code',
