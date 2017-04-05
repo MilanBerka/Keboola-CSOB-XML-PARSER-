@@ -1,6 +1,6 @@
 # Keboola-CSOB-XML-PARSER-
 
-**Keboola-CSOB-XML-PARSER-** is highly customized script, that connects to Google Drive (using PyDrive with `settings.yaml` file provided externally through Keboola Configuration JSON) 
+**Keboola-CSOB-XML-PARSER-** is highly customized script, that connects to Google Drive (using PyDrive with `settings.yaml` file provided externally through Keboola Configuration JSON) and parse XML files in desired folders, convert them to CSV and export them. The script is designed for XML of particular structure, thus for another applications modification must be made directly to the script.
 
 ## Keboola Config JSON
 Keboola Config JSON may looks like this:
